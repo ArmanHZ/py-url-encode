@@ -16,11 +16,18 @@ def special_only_encode_space(input_list):
     return parsed[:-1]
 
 
+def to_utf8_url_encode(string):
+    url_encoded = ''
+    for i in string.encode():
+        url_encoded += '%' + hex(i)[2:]
+    return url_encoded
+
+
 def all_chars_encode(input_list):
     parsed = ''
     for i in input_list:
         for j in i:
-            parsed += '%' + hex(ord(j))[2:]
+            parsed += to_utf8_url_encode(j)
         parsed += '%20'
     return parsed[:-3]
 
@@ -29,7 +36,7 @@ def all_chars_encode_space(input_list):
     parsed = ''
     for i in input_list:
         for j in i:
-            parsed += '%' + hex(ord(j))[2:]
+            parsed += to_utf8_url_encode(j)
         parsed += '+'
     return parsed[:-1]
 
