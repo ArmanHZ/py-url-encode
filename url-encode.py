@@ -37,7 +37,7 @@ def all_chars_encode_space(input_list):
 def decode(input_list):
     decoded = ''
     for i in input_list:
-        decoded += urllib.parse.unquote(i) + ' '
+        decoded += urllib.parse.unquote_plus(i) + ' '
     return decoded[:-1]
 
 
