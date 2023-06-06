@@ -34,29 +34,41 @@ def all_chars_encode_space(input_list):
     return parsed[:-1]
 
 
+def decode(input_list):
+    decoded = ''
+    for i in input_list:
+        decoded += urllib.parse.unquote(i) + ' '
+    return decoded[:-1]
+
+
 parser = argparse.ArgumentParser()
 
+parser.add_argument('--all', '-a', help='Encode all characters.', action='store_true')
+parser.add_argument('--decode', '-d', help='URL decode.', action='store_true')
 parser.add_argument('--space', '-s', help='Use \'+\' for spaces instead of %20.', action='store_true')
-parser.add_argument('--all', '-a', help='Encode all characters', action='store_true')
-parser.add_argument('input', help='Input to be URL encoded', type=str, nargs='+')
+parser.add_argument('input', help='Input to be URL encoded.', type=str, nargs='+')
 
 args = parser.parse_args()
 
-input_list = args.input
-space_flag = args.space
 all_flag = args.all
+decode_flag = args.decode
+space_flag = args.space
+input_list = args.input
 
 result = None
 
-if all_flag:
-    if space_flag:
-        result = all_chars_encode_space(input_list)
-    else:
-        result = all_chars_encode(input_list)
+if decode_flag:
+    result = decode(input_list)
 else:
-    if space_flag:
-        result = special_only_encode_space(input_list)
+    if all_flag:
+        if space_flag:
+            result = all_chars_encode_space(input_list)
+        else:
+            result = all_chars_encode(input_list)
     else:
-        result = special_only_encode(input_list)
+        if space_flag:
+            result = special_only_encode_space(input_list)
+        else:
+            result = special_only_encode(input_list)
 
 print(result)
