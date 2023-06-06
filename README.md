@@ -40,3 +40,10 @@ spaces+are+weird
 $ python3 url-encode.py -a -s spaces are weird
 %73%70%61%63%65%73+%61%72%65+%77%65%69%72%64
 ```
+Decoding
+```bash
+# -d or --decode flag to decode URL encoded string
+# Decodes both '+' and '%20'
+$ python3 url-encode.py -d spaces+are%20weird
+spaces are weird
+```
